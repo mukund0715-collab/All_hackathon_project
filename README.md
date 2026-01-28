@@ -1,10 +1,10 @@
-# hackathon_CB
-A Project for Code Bharat Hackathon Insight Mail
+# hackathons
+The Projects for All Hackathons I visited
 
 Product Requirements Document (PRD)
 
 
-Insight Mail Version: 1.0 (Hackathon Release)
+# 1. Insight Mail Version: 1.0 (Hackathon Release)
 
 Status: Feature Complete.
 
@@ -120,3 +120,4 @@ Flow B: The "Assistant" (Active Response)
 2.	Slack/Teams Integration: Push "High Risk" alerts directly to a Slack channel.
 3.	Custom Model Training: Replace the Keyword Dictionary with the Scikit-Learn Naive Bayes model (prototype already built in train_model.py).
 
+# 2. 
