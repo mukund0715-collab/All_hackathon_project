@@ -12,4 +12,6 @@ urlpatterns = [
     
     path('email/<int:email_id>/', views.email_detail, name='email_detail'),
     path('analyze/<int:email_id>/', views.analyze_email, name='analyze_email'),
+    path('sync-gmail/', views.sync_gmail_view, name='sync_gmail'),
+
 ]
