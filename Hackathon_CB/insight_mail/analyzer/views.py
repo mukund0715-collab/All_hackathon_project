@@ -5,6 +5,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Email, AnalysisResult
 from .forms import SignUpForm, ComposeEmailForm # <--- Make sure to import SignUpForm
+from .utils import fetch_gmail_emails # Import the tool we just made
+
+@login_required
+def sync_gmail_view(request):
+    # FOR HACKATHON: Hardcode credentials or put in settings.py
+    # DO NOT commit real passwords to GitHub
+    GMAIL_USER = "mgumathannavar@gmail.com"
+    GMAIL_APP_PASSWORD = "rran vxwr wmxr tnod" # <--- Your 16-char App Password
+
+    if request.method == "POST":
+        message = fetch_gmail_emails(GMAIL_USER, GMAIL_APP_PASSWORD, request.user)
+        # Store message in session to show on dashboard (optional)
+        print(message) 
+        return redirect('dashboard')
+    
+    return redirect('dashboard')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -120,11 +136,13 @@ def email_detail(request, email_id):
 
 @login_required
 def analyze_email(request, email_id):
-    # (Logic remains the same, kept for compatibility if you click button manually)
     from .ai_engine import analyze_email_content
     email = get_object_or_404(Email, id=email_id)
     
-    analysis_data = analyze_email_content(email.subject, email.body)
+    # --- FIX IS HERE ---
+    # OLD: analysis_data = analyze_email_content(email.subject, email.body)
+    # NEW: Just pass 'email'
+    analysis_data = analyze_email_content(email) 
     
     AnalysisResult.objects.update_or_create(
         email=email,
