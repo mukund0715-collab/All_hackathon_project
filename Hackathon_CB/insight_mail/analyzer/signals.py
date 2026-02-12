@@ -17,19 +17,16 @@ def auto_analyze_email(sender, instance, created, **kwargs):
 
         history_data = [{'sender': e.sender.username, 'body': e.body} for e in previous_emails]
         
-        # 2. GET THE USER'S NAME
-        # If they set a First Name, use it. Otherwise use Username.
+        # 2. GET USER NAME
         if instance.recipient.first_name:
             my_name = f"{instance.recipient.first_name} {instance.recipient.last_name}"
         else:
             my_name = instance.recipient.username
 
-        # 3. RUN AI (Pass 'my_name' as the agent_name)
         analysis_data = analyze_email_content(
-            instance.subject, 
-            instance.body, 
+            instance,                 
             history=history_data, 
-            agent_name=my_name  # <--- THIS FIXES IT
+            agent_name=my_name
         )
         
         # 4. SAVE RESULT
