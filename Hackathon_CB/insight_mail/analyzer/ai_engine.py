@@ -20,7 +20,7 @@ from .keywords import DANGER_KEYWORDS, COMPLAINT_KEYWORDS, FINANCE_KEYWORDS
 # CONFIGURATION
 # ---------------------------------------------------------
 # SECURITY NOTE: In production, use os.environ.get('GOOGLE_API_KEY')
-GOOGLE_API_KEY = "AIzaSyDGsKNjOPjFQkuQub0vyz-2V3R-VN-4m64" 
+GOOGLE_API_KEY = "YOUR_GOOGLE_API_KEY" 
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Global paths for saving ML models
@@ -206,3 +206,4 @@ def analyze_email_content(email_obj, history=[], agent_name="Support Team"):
         "suggested_category": category,
         "suggested_reply": draft_reply
     }
+
