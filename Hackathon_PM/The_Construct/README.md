@@ -44,3 +44,16 @@ No video is ever saved. No data ever leaves the laptop.
 
     CustomTkinter (Modern, dark-theme GUI)
 
+🎮 How to Use (Demo Flow)
+
+Launch the app.py UI.
+
+Enter an "Operator Alias" (Notice: No cloud password required, proving zero cloud auth).
+
+Select Module N0: Palm Strike.
+
+Click "View Master Tape" to see the reference movement.
+
+Click "Enter The Construct" to activate the webcam tracker. Perform the move.
+
+When the session ends, the terminal will launch the AI Coach, triggering audio feedback and exact geometric corrections.
