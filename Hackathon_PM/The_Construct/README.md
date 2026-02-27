@@ -1,52 +1,78 @@
-🟢 Project Morpheus: The Construct
-An Offline, Privacy-First AI Self-Defense Trainer for Women.
-🚨 The Problem
+🟢 Offline AI Self-Defense Trainer
 
-Traditional AI fitness or self-defense apps require users to upload videos of themselves to cloud servers for processing. For a women's safety app, this is a massive privacy risk. Women should not have to compromise their digital privacy or record themselves in their homes just to learn basic self-defense. Furthermore, cloud-based LLMs introduce latency that ruins real-time physical training.
+A Zero-Setup, Privacy-First AI Self-Defense Trainer for Women.
 
-💡 The Solution
+📖 Project Overview
 
-Project Morpheus is a 100% local, zero-cloud biometric training terminal.
-It uses advanced 3D spatial tracking to compare a user's live movements against a pre-recorded "Ghost" of a martial arts master.
+Offline AI Self-Defense Trainer is a zero-setup, biometric coaching terminal designed to teach women self-defense without compromising their privacy. By acting as a "mathematical mirror," the system uses local computer vision to compare a user's physical movements against a professional martial artist's perfect form in real-time.
 
-Instead of recording the user, the app acts as a mathematical mirror. It extracts skeletal data locally in real-time, calculates the vector differences (Dynamic Time Warping & Cosine Similarity), and immediately deletes the frame.
+It provides instant, sub-millisecond voice feedback on physical form—all completely offline, without ever saving or uploading a single frame of video to the cloud. Simply download, double-click, and train.
 
-No video is ever saved. No data ever leaves the laptop.
-✨ Key Features
+🚨 The Problem: Privacy vs. Protection
 
-    Zero-Cloud Architecture: All neural network processing (MediaPipe) happens directly on the user's local hardware.
+Traditional AI fitness or self-defense applications require users to upload videos of themselves to cloud servers for processing. For a women's safety application, this is a massive privacy risk. Women should not have to compromise their digital privacy or record themselves inside their homes to learn basic self-defense.
 
-    Deterministic Math-Based AI Coach: Instead of hallucination-prone, high-latency LLMs, Morpheus uses raw 3D kinematics to deliver instant, sub-millisecond coaching (e.g., "Your right elbow is misaligned during the extension phase").
+Furthermore, relying on cloud-based Large Language Models (LLMs) for computer vision feedback introduces severe latency, ruining the real-time physical training experience.
 
-    Semantic Action Tagging: The engine doesn't just look at raw numbers; it understands the phase of the movement (e.g., "Raising the knee", "Extending the hand") to provide context-aware feedback.
+💡 The Solution: A Standalone Biometric Executable
 
-    The "Matrix" UI: A sleek, gamified CustomTkinter interface that separates the heavy OpenCV rendering from the user dashboard for maximum stability.
+This application is a 100% local, zero-cloud self-defense training terminal packaged as a standalone Windows executable. Users do not need to install Python, configure environments, or download libraries. They simply double-click and train.
 
-⚙️ How It Works (The Pipeline)
+Instead of recording the user, the application acts as a mathematical mirror. It extracts skeletal data locally in real-time, calculates the vector differences using weighted joint heuristics, and immediately discards the video frame. No video is ever saved. No data ever leaves the local machine.
 
-    The Master Extraction (Offline): We feed videos of self-defense experts into our engine. It extracts their perfect skeletal movements and saves them as lightweight .json vector files (The "Ghost").
+✨ Core Architecture & Innovation
 
-    The Terminal UI (app.py): The user logs into a secure local session and selects a training module (e.g., Module N0: Palm Strike).
+1. The Deployment Engine (Zero-Install Architecture)
 
-    The Comparator Engine (live4.py): The user performs the move in front of the webcam. The system overlays the Matrix HUD, tracking 33 body landmarks at 30 FPS.
+The application uses a custom executable-intercept architecture (sys.argv routing). Instead of running multiple separate Python scripts, the main .exe intercepts system arguments to spawn secure, isolated sub-processes for the computer vision engine and the text-to-speech coach.
 
-    The After-Action Report (ai_coach1.py): The system analyzes the stuck_coordinates_log.json to tell the user exactly which joint failed at what specific phase of the move, granting a final sync score.
+All AI model weights (pose_landmarker_heavy.task) and semantic data (n0_complete_data.json) are bundled directly into the application's runtime directory using sys._MEIPASS relative routing.
+
+2. Offline Semantic Action Tagging
+
+To eliminate latency, the "Master Tapes" (reference videos) are processed entirely offline before being bundled into the software.
+
+Raw math is automatically converted into grouped Semantic Action Phases (e.g., Frames 15-26: "extending the right hand"). This gives the AI Coach immediate context without requiring heavy live computation.
+
+3. The Live Training Environment (live4.py)
+
+When the user enters the trainer, the system evaluates their form in real-time.
+
+Scale & Position Invariance: The engine translates all coordinates to be relative to the user's hip-center. This ensures a 5'2" user can be accurately scored against a 6'2" master, regardless of where they stand in the room.
+
+Custom Joint Weighting: Not all joints matter equally in self-defense. Our evaluation engine uses a custom distribution matrix (e.g., Ankles/Feet: 0.25, Knees: 0.20, Shoulders: 0.10), prioritizing lower-body stability over head position.
+
+4. The Deterministic AI Sensei (ai_coach1.py)
+
+Instead of an LLM, we built a deterministic, math-based AI Coach.
+
+Sub-Millisecond Feedback: It reads local logs and uses relative X/Y differentials to generate exact physical corrections.
+
+Text-to-Speech (TTS): Integrated with pyttsx3, the coach audibly speaks the corrections, spawning in a dedicated hacker-style terminal window.
+
+Instant Tape Review: The coach allows the user to press a button and instantly launch an OpenCV window showing the exact frame of the master tape where they made their mistake.
 
 🛠️ Tech Stack
 
-    Python 3.10+ (Core Engine)
+Core Engine: Python 3.10+
 
-    OpenCV (cv2) (Real-time video rendering and visual HUD)
+Computer Vision: Google MediaPipe Vision Tasks & OpenCV (cv2)
 
-    Google MediaPipe (Sub-millisecond pose estimation / computer vision)
+Kinematics: NumPy (Cosine Similarity, Euclidean geometry)
 
-    NumPy (Kinematic vector math, Cosine Similarity, Euclidean geometry)
+User Interface: CustomTkinter
 
-    CustomTkinter (Modern, dark-theme GUI)
+Accessibility: PyTTSx3 (Offline Text-to-Speech)
 
-🎮 How to Use (Demo Flow)
+Deployment: PyInstaller / Auto-py-to-exe
 
-Launch the app.py UI.
+🚀 How to Run (For End Users & Judges)
+
+You do not need Python installed to run this application!
+
+Download the provided application folder.
+
+Double-click the standalone executable (app.exe).
 
 Enter an "Operator Alias" (Notice: No cloud password required, proving zero cloud auth).
 
@@ -54,6 +80,47 @@ Select Module N0: Palm Strike.
 
 Click "View Master Tape" to see the reference movement.
 
-Click "Enter The Construct" to activate the webcam tracker. Perform the move.
+Click "Start Training" to activate the webcam tracker. Perform the move.
 
-When the session ends, the terminal will launch the AI Coach, triggering audio feedback and exact geometric corrections.
+When the session ends, click Launch AI Coach for audio feedback and exact geometric corrections!
+
+💻 Instructions for Developers (Building from Source)
+
+1. Clone & Install
+
+git clone [https://github.com/your-username/ai-self-defense-trainer.git](https://github.com/your-username/ai-self-defense-trainer.git)
+cd ai-self-defense-trainer
+pip install opencv-python mediapipe numpy customtkinter pyttsx3 Pillow auto-py-to-exe
+
+
+
+2. Ensure Assets are Present
+Make sure pose_landmarker_heavy.task, me3.mp4, and n0_complete_data.json are in the root directory.
+
+3. Test Run
+
+python app.py
+
+
+
+4. Build the Executable
+
+Run auto-py-to-exe in your terminal.
+
+Script Location: app.py
+
+Onefile: Select One Directory (Crucial for OpenCV/MediaPipe performance).
+
+Console Window: Select Window Based (hide the console).
+
+Additional Files: Add pose_landmarker_heavy.task, n0_complete_data.json, and me3.mp4.
+
+Click Convert .py to .exe.
+
+🔮 Future Scope
+
+Hardware Acceleration: Compiling the math engine with PyTorch/CUDA for faster processing on low-end hardware.
+
+Expanded Curriculum: Adding a library of 50+ self defense techniques via our automated offline JSON pipeline.
+
+Dynamic Time Warping (DTW): Expanding the frame matching algorithm to allow users to perform the moves at slightly different speeds than the master tape without losing their sync score.
