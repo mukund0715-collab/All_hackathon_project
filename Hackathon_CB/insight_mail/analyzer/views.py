@@ -11,8 +11,8 @@ from .utils import fetch_gmail_emails # Import the tool we just made
 def sync_gmail_view(request):
     # FOR HACKATHON: Hardcode credentials or put in settings.py
     # DO NOT commit real passwords to GitHub
-    GMAIL_USER = "mgumathannavar@gmail.com"
-    GMAIL_APP_PASSWORD = "rran vxwr wmxr tnod" # <--- Your 16-char App Password
+    GMAIL_USER = "Your_Email_Here"
+    GMAIL_APP_PASSWORD = "Your 16-char App Password"
 
     if request.method == "POST":
         message = fetch_gmail_emails(GMAIL_USER, GMAIL_APP_PASSWORD, request.user)
